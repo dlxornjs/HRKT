@@ -24,7 +24,7 @@ class BaseKTAdapter(ABC, nn.Module):
     Required methods:
         embed_exercise(q)        → exercise embeddings   [B, L, d]
         embed_interaction(q, r)  → interaction embeddings [B, L, d]
-        attend_chunk(E_full, M_full, kerple_bias, attn_mask,
+        attend_chunk(E_full, M_full, attention_bias, attn_mask,
                      attn_dropout, ffn_dropout)
                                  → attention output       [B, T, d]
     """
