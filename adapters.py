@@ -40,7 +40,7 @@ class BaseKTAdapter(ABC, nn.Module):
         """Number of attention heads."""
 
     @abstractmethod
-    def embed_exercise(self, q):
+    def embed_exercise(self, q, pid=None):
         """
         Map question IDs to exercise embeddings.
 
@@ -51,7 +51,7 @@ class BaseKTAdapter(ABC, nn.Module):
         """
 
     @abstractmethod
-    def embed_interaction(self, q, r):
+    def embed_interaction(self, q, r, pid=None):
         """
         Map (question, response) pairs to interaction embeddings.
 
@@ -131,10 +131,10 @@ class SAKTAdapter(BaseKTAdapter):
     def num_heads(self):
         return self._num_heads
 
-    def embed_exercise(self, q):
+    def embed_exercise(self, q, pid=None):
         return self.E(q)
 
-    def embed_interaction(self, q, r):
+    def embed_interaction(self, q, r, pid=None):
         x = q + self.num_q * r
         return self.M(x)
 
