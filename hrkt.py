@@ -349,10 +349,6 @@ class TopLayer(nn.Module):
 class FusionGate(nn.Module):
     """
     Gated fusion of Bottom Layer (local) and Top Layer (global) outputs.
-
-        gate    = σ([H_bottom ‖ H_top] · W_g)                   (Eq. 26)
-        H_fused = LayerNorm(H_bottom + Dropout(gate ⊙ H_top))   (Eq. 27)
-
     Corresponds to Section 4.3 in the paper.
     """
 
@@ -384,9 +380,6 @@ class FusionGate(nn.Module):
 class PredictionHead(nn.Module):
     """
     Two-layer FFN with ReLU and dropout, followed by sigmoid.
-
-        r̂_t = σ(W₂ · Dropout(ReLU(W₁ · H_t + b₁)) + b₂)   (Eq. 28)
-
     Corresponds to Section 4.4 in the paper.
     """
 
@@ -420,21 +413,6 @@ class HRKT(nn.Module):
 
     Wraps any BaseKTAdapter with a hierarchical recurrent structure:
     BottomLayer → MemorySelfAttention → TopLayer → FusionGate → PredictionHead.
-
-    Usage::
-
-        sakt = SAKTAdapter(num_q=100, d=64, num_heads=4, dropout=0.2)
-        model = HRKT(sakt, chunk_len=50, mem_len=4)
-
-        probs = model(q, r, t, qry)  # [B, L]
-
-    Args:
-        base_model:      BaseKTAdapter instance (e.g., SAKTAdapter).
-        chunk_len:       Chunk size C (default 50).
-        mem_len:         Memory token count m per chunk (default 4).
-        dropout:         Base dropout rate (default 0.2).
-        top_dropout:     Dropout rate for top layer and fusion (default 0.3).
-        top_d_ff_ratio:  FFN expansion ratio for top layer (default 4).
     """
 
     def __init__(
