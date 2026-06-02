@@ -321,10 +321,12 @@ class TopLayer(nn.Module):
         retrieval_mask = retrieval_mask.masked_fill(mask_cond, float("-inf"))
         logits = logits + retrieval_mask.unsqueeze(0).unsqueeze(0)
 
-        attn = F.softmax(logits, dim=-1)
-        if torch.isnan(attn).any():
-            warnings.warn("NaN in TopLayer cross-attention softmax; using uniform fallback.")
-            attn = torch.ones_like(attn) / attn.size(-1)
+        valid_rows = ~torch.isinf(logits).all(dim=-1, keepdim=True)
+
+        safe_logits = logits.masked_fill(~valid_rows, 0.0)
+        attn = F.softmax(safe_logits, dim=-1)
+        attn = attn * valid_rows.float()
+        
         attn = self.dropout(attn)
 
         out = torch.matmul(attn, V_h)
