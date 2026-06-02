@@ -1,5 +1,4 @@
 # HRKT
-[![DOI](https://zenodo.org/badge/1255814869.svg)](https://doi.org/10.5281/zenodo.20494828)
 
 This repository provides a PyTorch reference implementation of **HRKT-SAKT**, 
 the SAKT-based version of Hierarchical Recurrent Knowledge Tracing (HRKT).
