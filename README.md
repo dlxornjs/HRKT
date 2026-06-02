@@ -35,10 +35,13 @@ HRKT consists of three main components:
 ```text
 HRKT/
 ├── README.md
-├── figures/
-│   ├── architecture_overview.png
-│   └── hrkt_internal_architecture.png
-└── model.py
+├── model.py
+├── hrkt.py
+├── adapters.py
+├── utils.py
+└── figures/
+    ├── architecture_overview.png
+    └── hrkt_internal_architecture.png
 ```
 
 ## Usage
@@ -70,7 +73,7 @@ model = HRKT_SAKT(
     top_d_ff_ratio=4,
 )
 
-out = model(q=q, r=r, qry=qry)
+out = model(q=q, r=r, t=None, qry=qry)
 
 print(out.shape)
 ```
