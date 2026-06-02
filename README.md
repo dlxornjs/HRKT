@@ -39,7 +39,7 @@ HRKT/
 │   ├── fig2_hrkt_overview.png
 │   └── fig3_hrkt_internal_architecture.png
 └── model.py
-
+```
 
 ## Usage
 
