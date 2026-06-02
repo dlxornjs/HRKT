@@ -36,8 +36,8 @@ HRKT consists of three main components:
 HRKT/
 ├── README.md
 ├── figures/
-│   ├── fig2_hrkt_overview.png
-│   └── fig3_hrkt_internal_architecture.png
+│   ├── architecture_overview.png
+│   └── hrkt_internal_architecture.png
 └── model.py
 ```
 
